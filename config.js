@@ -1,20 +1,28 @@
 /* ===== LOGO HIVE SETTINGS =====
-   The easy way to change these: open admin.html, change things, press "Download files",
-   then upload the downloaded config.js to GitHub (replace the old one).
-   You can also edit this file by hand in Notepad. */
+   Made by admin.html. Upload this file to GitHub to replace the old config.js.
+   You can also edit it by hand in Notepad. */
 window.CONFIG = {
   "APP_NAME": "Logo Hive",
-  "FREE_LOGOS": 2,
+  "FREE_LOGOS": 3,
   "PRICE": 50,
   "LOGOS_PER_CODE": 3,
+  "PAYMENT_ENABLED": false,
   "WATERMARK": true,
   "SHOW_SUBTYPES": true,
   "WATERMARK_OPACITY": 22,
   "CURRENCY": "Rs.",
   "WHATSAPP": "923000000000",
   "PAY": [
-    { "name": "Easypaisa", "number": "03XX-XXXXXXX", "title": "Your account name" },
-    { "name": "JazzCash", "number": "03XX-XXXXXXX", "title": "Your account name" }
+    {
+      "name": "Easypaisa",
+      "number": "03XX-XXXXXXX",
+      "title": "Your account name"
+    },
+    {
+      "name": "JazzCash",
+      "number": "03XX-XXXXXXX",
+      "title": "Your account name"
+    }
   ],
   "CODES": [
     "851d0c6872ef5c24d6c7aa97b66fe667",
