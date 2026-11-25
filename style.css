@@ -174,3 +174,6 @@ input[type=text]:focus{border-color:var(--green); box-shadow:0 0 0 3px rgba(15,1
 .chips.small{margin-top:8px}
 .chips.small:empty{display:none}
 .chips.small .chip{font-size:.8rem;padding:5px 11px}
+
+.installbtn{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:40;border:0;border-radius:999px;background:var(--green);color:#fff;font:600 .95rem Poppins,system-ui,sans-serif;padding:12px 22px;box-shadow:0 8px 24px rgba(0,0,0,.28);cursor:pointer}
+.installbtn[hidden]{display:none}

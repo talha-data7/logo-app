@@ -7,6 +7,16 @@
   <meta name="description" content="Logo Hive: make a professional logo for your shop in seconds. English and Urdu, 100+ designs, 80+ fonts.">
   <meta name="theme-color" content="#0f6b4f">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,6 88,28 88,72 50,94 12,72 12,28' fill='%23d4a017'/%3E%3Cpolygon points='50,26 70,38 70,62 50,74 30,62 30,38' fill='%230f6b4f'/%3E%3C/svg%3E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Logo Hive">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Logo Hive - Free Logo Maker">
+  <meta property="og:description" content="Make a logo for your shop in seconds. 900+ designs, English and Urdu, 100% free.">
+  <meta property="og:image" content="https://logo-app.pages.dev/og.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
@@ -162,5 +172,15 @@
   <script src="sha256.js"></script>
   <script src="colorpicker.js"></script>
   <script src="script.js"></script>
+  <button type="button" id="installBtn" class="installbtn" hidden>Install app &middot; <span class="ur">ایپ انسٹال کریں</span></button>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () { }); });
+    (function () {
+      var dp = null, b = document.getElementById("installBtn");
+      window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; b.hidden = false; });
+      b.addEventListener("click", function () { if (!dp) return; dp.prompt(); dp.userChoice.then(function () { dp = null; b.hidden = true; }); });
+      window.addEventListener("appinstalled", function () { b.hidden = true; });
+    })();
+  </script>
 </body>
 </html>
