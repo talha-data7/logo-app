@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logo Hive - Free Logo Maker</title>
+  <meta name="description" content="Logo Hive: make a professional logo for your shop in seconds. English and Urdu, 100+ designs, 80+ fonts.">
+  <meta name="theme-color" content="#0f6b4f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,6 88,28 88,72 50,94 12,72 12,28' fill='%23d4a017'/%3E%3Cpolygon points='50,26 70,38 70,62 50,74 30,62 30,38' fill='%230f6b4f'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <svg class="hex" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="#d4a017"/><polygon points="50,28 69,39 69,61 50,72 31,61 31,39" fill="#0f6b4f"/></svg>
+      <h1 id="appName">Logo Hive</h1>
+    </div>
+    <p class="sub">Make a logo for your shop in seconds &middot; <span class="ur">اردو بھی لکھ سکتے ہیں</span></p>
+  </header>
+
+  <noscript><p class="warn">Please turn on JavaScript to use Logo Hive.</p></noscript>
+
+  <main class="layout">
+    <!-- PREVIEW -->
+    <section class="card preview" aria-label="Logo preview">
+      <div class="stage" id="stage"><canvas id="cv" aria-label="Your logo"></canvas></div>
+      <div class="actions">
+        <button id="dlBtn" class="btn primary" type="button">Download PNG</button>
+      </div>
+      <p class="hint" id="quota"></p>
+    </section>
+
+    <!-- CONTROLS -->
+    <section class="card controls" aria-label="Logo settings">
+      <div class="step">
+        <div class="lab"><span class="num">1</span> Business name <span class="ur">کاروبار کا نام</span></div>
+        <div class="trow">
+          <input id="name" type="text" maxlength="40" placeholder="e.g. Sweet Bakery  /  سویٹ بیکری" autocomplete="off" aria-label="Business name">
+          <button id="nameFont" type="button" class="fbtn" title="Choose font" aria-label="Name font"><span>Aa</span></button>
+          <button id="nameCol" type="button" class="sw" title="Name color" aria-label="Name color"><i></i></button>
+        </div>
+        <div class="trow">
+          <input id="tagline" type="text" maxlength="60" placeholder="Tagline (optional)  /  ٹیگ لائن" autocomplete="off" aria-label="Tagline">
+          <button id="tagFont" type="button" class="fbtn" title="Choose font" aria-label="Tagline font"><span>Aa</span></button>
+          <button id="tagCol" type="button" class="sw" title="Tagline color" aria-label="Tagline color"><i></i></button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="lab"><span class="num">2</span> Business type <span class="ur">کاروبار کی قسم</span></div>
+        <div class="nsearch">
+          <input id="nicheSearch" type="search" autocomplete="off" spellcheck="false" placeholder="Search your business: dentist, bakery, mobile repair... / اپنا کاروبار تلاش کریں" aria-label="Search your business type">
+          <div id="nicheRes" class="nres" hidden></div>
+        </div>
+        <div id="cats" class="chips"></div>
+        <div id="fams" class="chips small"></div>
+      </div>
+
+      <div class="step">
+        <div class="lab"><span class="num">3</span> Pick a style <span class="ur">ڈیزائن چنیں</span> <span class="count" id="count"></span></div>
+        <div id="grid" class="grid"></div>
+        <div class="row tools">
+          <button id="editBtn" type="button" class="btn ghost">&#9986; Edit logo parts <span class="ur">حصے ہٹائیں</span></button>
+          <span class="mini" id="editNote"></span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="lab"><span class="num">4</span> Badge frame <span class="ur">فریم</span></div>
+        <div class="chips wrap" id="frames"></div>
+        <div class="row" id="frameOpts">
+          <div class="seg" id="fstyleSeg" role="group" aria-label="Frame style">
+            <button type="button" data-v="ring" class="on">Outline</button>
+            <button type="button" data-v="fill">Filled</button>
+          </div>
+          <label class="color"><span>Frame color</span><button id="frameCol" type="button" class="sw" aria-label="Frame color"><i></i></button></label>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="lab"><span class="num">5</span> Colors <span class="ur">رنگ</span></div>
+        <div class="sub2">Logo colors (tap a circle to change it)</div>
+        <div id="logoCols" class="swrow"></div>
+        <div class="row">
+          <label class="check"><input id="mono" type="checkbox"> One color for the whole symbol</label>
+          <button id="monoCol" type="button" class="sw" aria-label="Symbol color" hidden><i></i></button>
+          <button id="resetCols" type="button" class="link">Reset colors</button>
+        </div>
+        <div class="row">
+          <label class="color"><span>Background</span><button id="bgCol" type="button" class="sw" aria-label="Background color"><i></i></button></label>
+          <label class="check"><input id="clear" type="checkbox"> Transparent</label>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="lab"><span class="num">6</span> Layout &amp; size <span class="ur">ترتیب</span></div>
+        <div class="seg wide" id="layoutSeg" role="group" aria-label="Layout">
+          <button type="button" data-v="stack" class="on">Stacked</button>
+          <button type="button" data-v="side">Side by side</button>
+          <button type="button" data-v="icon">Symbol only</button>
+          <button type="button" data-v="text">Text only</button>
+        </div>
+        <label class="range"><span>Symbol size</span><input id="ss" type="range" min="50" max="130" value="100"></label>
+        <label class="range"><span>Text size</span><input id="ts" type="range" min="50" max="140" value="100"></label>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Please make sure your final logo does not look like an existing brand before you print it.</p>
+  </footer>
+
+  <!-- font chooser -->
+  <div id="fontPop" class="pop" hidden role="dialog" aria-label="Choose font">
+    <div class="pop-head"><b id="fontTitle">Choose a font</b><button type="button" class="pk-x" data-close aria-label="Close">&times;</button></div>
+    <div id="fontChips" class="chips wrap small"></div>
+    <div id="fontList" class="flist"></div>
+  </div>
+
+  <!-- part editor -->
+  <div id="editModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Edit logo parts">
+    <div class="sheet editsheet">
+      <div class="sheet-head"><b>Edit logo parts <span class="ur">حصے ہٹائیں</span></b><button type="button" id="editDone" class="btn primary small">Done</button></div>
+      <div class="seg wide" id="toolSeg" role="group" aria-label="Tool">
+        <button type="button" data-v="tap" class="on">Tap a part to remove it</button>
+        <button type="button" data-v="erase">Draw around an area to erase</button>
+      </div>
+      <p class="hint" id="editHint"></p>
+      <div id="editStage" class="editstage"></div>
+      <div class="actions">
+        <button type="button" id="editUndo" class="btn ghost">Undo</button>
+        <button type="button" id="editReset" class="btn ghost">Bring everything back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- pay / unlock -->
+  <div id="payModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Unlock download">
+    <div class="sheet paysheet">
+      <button type="button" class="pk-x" data-close aria-label="Close">&times;</button>
+      <h2 id="payTitle">You have used your free logos</h2>
+      <p id="payLead" class="lead"></p>
+      <ol class="steps">
+        <li><div>Send <b id="payPrice"></b> to any one account:</div><div id="payAccts" class="accts"></div></li>
+        <li><div>After paying, tell us your payment ID (transaction number) so we can send your code:</div><button type="button" id="payWA" class="btn gold">I have paid - message us</button></li>
+        <li><div>We reply with your unlock code. Paste it here:</div>
+          <div class="trow"><input id="codeIn" type="text" placeholder="HIVE-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" aria-label="Unlock code"><button type="button" id="codeGo" class="btn primary">Unlock</button></div></li>
+      </ol>
+      <p id="codeMsg" class="msg" role="status"></p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="custom.js"></script>
+  <script src="fonts.js"></script>
+  <script src="designs.js"></script>
+  <script src="logos.js"></script>
+  <script src="niches.js"></script>
+  <script src="sha256.js"></script>
+  <script src="colorpicker.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

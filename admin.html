@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Logo Hive Admin</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body{padding-bottom:60px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+  .bar{position:sticky;top:0;z-index:20;background:#fff3cd;border-bottom:1px solid #e6d28a;padding:8px 16px;font-size:.88rem;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+  .tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 0 12px}
+  .panel{display:none}.panel.on{display:block}
+  .panel .card{margin-bottom:16px}
+  h2{margin:0 0 4px;font-size:1.2rem}
+  h3{margin:18px 0 8px;font-size:1rem}
+  .lead{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+  .grid2{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:700px){.grid2{grid-template-columns:1fr 1fr}}
+  label.f{display:block;font-weight:600;font-size:.88rem;margin-bottom:4px}
+  label.f small{font-weight:400;color:var(--muted)}
+  input[type=text],input[type=number],select,textarea{width:100%;min-width:0;font:inherit;font-size:.98rem;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(15,107,79,.15)}
+  textarea{min-height:90px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .pay{display:grid;gap:8px;grid-template-columns:1fr;padding:10px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:8px}
+  @media(min-width:700px){.pay{grid-template-columns:1fr 1fr 1.3fr auto;align-items:center}}
+  .b{appearance:none;border:0;cursor:pointer;font-weight:600;font-size:.9rem;padding:9px 16px;border-radius:10px;color:#fff;background:var(--green)}
+  .b:hover{background:var(--green-d)}
+  .b.g{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .b.g:hover{border-color:#bdb6a4}
+  .b.r{background:#fff;color:var(--danger);border:1.5px solid #e8c4bf}
+  .b.gold{background:var(--gold)}
+  .b:disabled{opacity:.5;cursor:default}
+  .drop{border:2px dashed #bdb6a4;border-radius:16px;padding:26px 16px;text-align:center;background:#fbfaf7;cursor:pointer}
+  .drop.over{border-color:var(--green);background:#eef7f2}
+  .drop b{display:block;font-size:1.02rem}
+  .help{font-size:.84rem;color:var(--muted);background:#faf8f3;border-radius:12px;padding:10px 14px;margin:10px 0}
+  .help li{margin:3px 0}
+  .tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .mt{border:1.5px solid var(--line);border-radius:14px;padding:8px;background:#fff;position:relative}
+  .mt.off{opacity:.45}
+  .mth{aspect-ratio:1;display:grid;place-items:center;background:conic-gradient(#f1eee7 25%,#fbfaf7 0 50%,#f1eee7 0 75%,#fbfaf7 0) 0 0/16px 16px;border-radius:10px;padding:6px}
+  .mth svg{width:100%;height:100%}
+  .mtf{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .mid{font-size:.7rem;color:var(--muted);flex:1 1 100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mtf .b{padding:5px 10px;font-size:.78rem}
+  .badge{position:absolute;top:6px;left:6px;background:var(--gold);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:999px;z-index:1}
+  .qcard{display:grid;gap:14px;grid-template-columns:1fr;border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-bottom:12px}
+  @media(min-width:700px){.qcard{grid-template-columns:260px 1fr}}
+  .qprev{aspect-ratio:1;background:conic-gradient(#f1eee7 25%,#fbfaf7 0 50%,#f1eee7 0 75%,#fbfaf7 0) 0 0/16px 16px;border-radius:12px;padding:8px}
+  .qprev svg{width:100%;height:100%;display:block}
+  .qprev path{cursor:pointer}
+  .qprev path.x{opacity:.1}
+  .warnl{margin:6px 0;padding:8px 12px;border-radius:10px;background:#fff3cd;font-size:.84rem}
+  .errl{margin:6px 0;padding:8px 12px;border-radius:10px;background:#fde8e5;color:#8a2417;font-size:.88rem}
+  .okl{margin:6px 0;padding:8px 12px;border-radius:10px;background:#e4f3ea;color:#0a4f3a;font-size:.88rem}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+  td code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.03em}
+  td.sold code{text-decoration:line-through;color:var(--muted)}
+  .tablewrap{overflow-x:auto}
+  .steps{padding-left:20px}.steps li{margin:6px 0}
+  .sum{display:grid;gap:6px;margin:0 0 12px;padding:0;list-style:none}
+  .sum li{padding:8px 12px;background:#faf8f3;border-radius:10px;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="bar" id="bar" hidden>
+  <span>You have changes that are not on your website yet.</span>
+  <button class="b gold" id="barGo" type="button">Publish them</button>
+</div>
+
+<header class="top">
+  <div class="brand">
+    <svg class="hex" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3l14 8v18l-14 8-14-8V11z" fill="#d4a017"/><path d="M20 10l8 4.6v9.2L20 28.4l-8-4.6v-9.2z" fill="#0f6b4f"/></svg>
+    <div><h1>Logo Hive Admin</h1><p class="sub">Add logos, change prices and make unlock codes. Nothing here changes your website until you publish (last tab).</p></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="chip on" data-tab="settings" type="button">1. Settings</button>
+    <button class="chip" data-tab="add" type="button">2. Add logos</button>
+    <button class="chip" data-tab="manage" type="button">3. Show / hide logos</button>
+    <button class="chip" data-tab="types" type="button">4. Business types</button>
+    <button class="chip" data-tab="codes" type="button">5. Unlock codes</button>
+    <button class="chip" data-tab="publish" type="button">6. Publish</button>
+  </div>
+
+  <div id="restoreMsg" class="warnl" hidden style="margin:0 0 12px">Your unfinished changes from last time were loaded. <button class="link" id="discard" type="button">Throw them away</button></div>
+
+  <!-- 1 settings -->
+  <section class="panel on" id="p-settings">
+    <div class="card">
+      <h2>Settings</h2>
+      <p class="lead">These control the whole website: name, free logos, price and where customers pay.</p>
+      <div class="grid2">
+        <div><label class="f" for="s_name">Website name</label><input type="text" id="s_name"></div>
+        <div><label class="f" for="s_free">Free logos per person <small>(before paying)</small></label><input type="number" id="s_free" min="0" max="50"></div>
+        <div><label class="f" for="s_price">Price of one payment</label><input type="number" id="s_price" min="0" max="100000"></div>
+        <div><label class="f" for="s_per">Logos the customer gets for one payment <small>(1, 2, 3, 5...)</small></label><input type="number" id="s_per" min="1" max="50"></div>
+        <div><label class="f" for="s_cur">Money word <small>(e.g. Rs.)</small></label><input type="text" id="s_cur" maxlength="6"></div>
+        <div style="background:#fff7dc;border:1.5px solid #e6c35a;border-radius:12px;padding:10px 12px;margin-bottom:6px"><label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="s_pay" style="width:18px;height:18px;accent-color:var(--green)"> <b>Payment ON</b> <small>(untick = everything is FREE. No payment box, no limit, no watermark. Then press Publish.)</small></label></div>
+        <div><label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="s_sub" style="width:18px;height:18px;accent-color:var(--green)"> Show sub-types row <small>(Restaurant, Burger, BBQ... under each group. Turn off to show only the main groups.)</small></label></div>
+        <div><label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="s_wm" style="width:18px;height:18px;accent-color:var(--green)"> Show watermark on the preview <small>(only after free logos are finished)</small></label></div>
+        <div><label class="f" for="s_wmo">Watermark strength <small>(5 = very faint, 80 = strong; 22 is good)</small></label><input type="number" id="s_wmo" min="5" max="80"></div>
+        <div style="grid-column:1/-1"><label class="f" for="s_wa">Your WhatsApp number <small>(customers send their payment screenshot here)</small></label>
+          <input type="text" id="s_wa" placeholder="923001234567" inputmode="numeric">
+          <div class="mini" id="s_wahint" style="margin-top:4px"></div></div>
+      </div>
+      <h3>Where customers pay</h3>
+      <p class="lead" style="margin-bottom:8px">Shown to customers on the payment screen. Add Easypaisa, JazzCash, bank, etc.</p>
+      <div id="payList"></div>
+      <button class="b g" id="payAdd" type="button">+ Add another account</button>
+    </div>
+  </section>
+
+  <!-- 2 add logos -->
+  <section class="panel" id="p-add">
+    <div class="card">
+      <h2>Add your own logos</h2>
+      <p class="lead">Choose SVG files made in Illustrator, Inkscape or Figma. You can pick many at once.</p>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose SVG files">
+        <b>Tap here to choose SVG files</b><span class="mini">or drag them onto this box</span>
+      </div>
+      <input type="file" id="files" accept=".svg,image/svg+xml" multiple hidden>
+      <div class="help">
+        <b>For best results (in Illustrator):</b>
+        <ul>
+          <li>Turn all text into shapes: select everything, then <i>Type &gt; Create Outlines</i>. Logo Hive writes the business name itself.</li>
+          <li>Use flat colors (no gradients, no blur). Fewer colors = easier for customers to recolor.</li>
+          <li>Remove clipping masks: <i>Object &gt; Clipping Mask &gt; Release</i>.</li>
+          <li>Save with <i>File &gt; Save As &gt; SVG</i>. Do not include the business name in the symbol.</li>
+        </ul>
+      </div>
+      <details><summary class="link" style="cursor:pointer">Or paste SVG code</summary>
+        <textarea id="paste" placeholder="&lt;svg ...&gt;...&lt;/svg&gt;"></textarea>
+        <button class="b g" id="pasteGo" type="button" style="margin-top:8px">Preview it</button>
+      </details>
+    </div>
+    <div id="queue"></div>
+    <div class="row" id="queueBtns" hidden style="margin-bottom:16px">
+      <button class="b" id="addAll" type="button">Add all to my logos</button>
+      <button class="b g" id="clearQ" type="button">Clear list</button>
+    </div>
+    <div class="card"><h2>Your added logos <span class="mini" id="mineCount"></span></h2>
+      <div class="tiles" id="mine"></div>
+    </div>
+  </section>
+
+  <!-- 3 manage -->
+  <section class="panel" id="p-manage">
+    <div class="card">
+      <h2>Show or hide logos</h2>
+      <p class="lead">Hidden logos disappear from the website. You can bring them back any time. Logos you added yourself can also be deleted.</p>
+      <div class="chips wrap" id="mgCats" style="margin-bottom:12px"></div>
+      <div class="tiles" id="mgGrid"></div>
+      <div class="row" style="margin-top:12px"><button class="b g" id="mgMore" type="button" hidden>Show more</button></div>
+    </div>
+  </section>
+
+  <!-- 4 types -->
+  <section class="panel" id="p-types">
+    <div class="card">
+      <h2>Business types</h2>
+      <p class="lead">These are the groups customers tap, like Bakery or Pets. Add your own, then put logos in them from tab 2.</p>
+      <div class="grid2">
+        <div><label class="f" for="t_en">Name in English</label><input type="text" id="t_en" placeholder="Mobile repair"></div>
+        <div><label class="f" for="t_ur">Name in Urdu <small>(optional)</small></label><input type="text" id="t_ur" dir="rtl" placeholder="موبائل مرمت"></div>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="b" id="t_add" type="button">Add business type</button><span class="mini" id="t_msg"></span></div>
+      <h3>Your own business types</h3>
+      <div id="t_list"></div>
+    </div>
+  </section>
+
+  <!-- 5 codes -->
+  <section class="panel" id="p-codes">
+    <div class="card">
+      <h2>Unlock codes</h2>
+      <p class="lead">When a customer pays you, send them one code. They paste it in the app and get the number of logos you set in Settings (default 3).</p>
+      <div class="row">
+        <label class="f" for="c_n" style="margin:0">How many codes?</label>
+        <input type="number" id="c_n" value="10" min="1" max="100" style="width:90px">
+        <button class="b" id="c_gen" type="button">Make codes</button>
+        <button class="b g" id="c_dl" type="button">Download my code list</button>
+      </div>
+      <div class="help">
+        <ul>
+          <li>After making codes, go to <b>Publish</b> and upload the new <code>config.js</code>. Codes only work after that.</li>
+          <li>The list below is saved only in this browser. Press <b>Download my code list</b> to keep a safe copy.</li>
+          <li>The website only stores a scrambled form of each code, so nobody can read the codes from your website.</li>
+          <li>One code works once on each phone/computer. Do not post codes publicly.</li>
+        </ul>
+      </div>
+      <p class="mini" id="c_stat"></p>
+      <div class="tablewrap"><table id="c_tbl"><thead><tr><th>Code</th><th>Sent to</th><th>Sent?</th><th></th></tr></thead><tbody></tbody></table></div>
+      <h3>Check a code</h3>
+      <div class="row"><input type="text" id="c_chk" placeholder="HIVE-XXXX-XXXX-XXXX" style="max-width:300px"><button class="b g" id="c_chkgo" type="button">Check</button><span class="mini" id="c_chkmsg"></span></div>
+    </div>
+  </section>
+
+  <!-- 6 publish -->
+  <section class="panel" id="p-publish">
+    <div class="card">
+      <h2>Publish your changes</h2>
+      <p class="lead">Download two small files, then upload them to GitHub. Your website updates by itself in about a minute.</p>
+      <ul class="sum" id="sum"></ul>
+      <div class="row">
+        <button class="b" id="dlCfg" type="button">Download config.js</button>
+        <button class="b" id="dlCus" type="button">Download custom.js</button>
+        <button class="b g" id="dlBoth" type="button">Download both</button>
+      <p class="mini" style="margin:10px 0 4px"><b>Download blocked?</b> Edge/Chrome sometimes blocks .js files. Click the download arrow at the top of the browser and choose <b>Keep</b>. Or use these buttons and paste the text into the file on GitHub (open the file &rarr; pencil icon &rarr; select all &rarr; paste &rarr; Commit).</p>
+      <div class="row"><button class="b g" id="cpCfg" type="button">Copy config.js text</button> <button class="b g" id="cpCus" type="button">Copy custom.js text</button> <span class="mini" id="cpMsg"></span></div>
+      </div>
+      <h3>Then upload them</h3>
+      <ol class="steps">
+        <li>Open your project on GitHub (the repository where the website files are).</li>
+        <li>Tap <b>Add file</b> &rarr; <b>Upload files</b>.</li>
+        <li>Drag in the downloaded <b>config.js</b> and <b>custom.js</b>. Same names replace the old ones.</li>
+        <li>Tap <b>Commit changes</b>. Wait one minute and refresh your website.</li>
+      </ol>
+      <p class="mini">If you made no change to a file you do not need to upload it again.</p>
+      <h3>Start over</h3>
+      <button class="b r" id="reset" type="button">Throw away my unpublished changes</button>
+    </div>
+  </section>
+</div>
+
+<script src="config.js"></script>
+<script src="custom.js"></script>
+<script src="designs.js"></script>
+<script src="logos.js"></script>
+<script src="niches.js"></script>
+<script src="sha256.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
